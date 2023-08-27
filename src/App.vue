@@ -1,26 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <LoginView/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LoginView from './views/LoginView.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    LoginView
   }
 }
 </script>
 
 <style>
+html, body {
+  background-color: lightseagreen;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-family: Verdana, sans-serif;
   margin-top: 60px;
 }
 </style>
