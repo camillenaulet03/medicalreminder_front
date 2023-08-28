@@ -1,25 +1,27 @@
 <template>
-  <LoginView/>
+  <v-app id="app">
+    <v-main>
+      <AppHeader/>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import LoginView from './views/LoginView.vue'
+import AppHeader from './components/AppHeader.vue';
 
 export default {
   name: 'App',
   components: {
-    LoginView
+    AppHeader,
   }
 }
 </script>
 
 <style>
-html, body {
-  background-color: lightseagreen;
-}
-
 #app {
   font-family: Verdana, sans-serif;
   margin-top: 60px;
+  background-color: #262DB7;
 }
 </style>
