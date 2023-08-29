@@ -31,6 +31,9 @@ export default {
           password: this.password
         }).then(async (result) => {
           await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
+          await localStorage.setItem("user-id", JSON.stringify({data: result.data.id, timestamp: Date.now()}));
+          await localStorage.setItem("user-status", JSON.stringify({data: 'pending', timestamp: Date.now()}));
+          this.$router.push('/verify');
         }).catch(() => {
           toast.error("Les identifiants sont incorrects !")
         })
@@ -48,7 +51,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background-color: white;
-  padding: 1em 5em;
+  padding: 1em 2em;
   width: 50%;
   border-radius: 20px;
   margin: 1em;
@@ -56,10 +59,11 @@ export default {
 
 h2 {
   margin-bottom: 2em;
+  text-align: center;
 }
 
 input {
-  width: 350px;
+  width: 60%;
   margin-bottom: 1em;
   padding: 0.75em;
   border-radius: 5px;
@@ -69,23 +73,23 @@ input {
 input[type="submit"] {
   width: 150px;
   margin-top: 2em;
-  background-color: blue;
+  background-color: #262DB7;
   color: white;
 }
 
-@media (min-width: 400px) and (max-width: 500px) {
+@media (min-width: 600px) and (max-width: 1000px) {
   input {
-    width: 250px;
+    width: 100%;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
   .login {
-    padding: 1em 3em;
+    width: 80%;
   }
 
   input {
-    width: 150px;
+    width: 100%;
   }
 }
 

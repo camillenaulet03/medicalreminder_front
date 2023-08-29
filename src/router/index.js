@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
+import VerifyView from "@/views/VerifyView.vue";
 
 const routes = [
   {
@@ -13,12 +14,23 @@ const routes = [
     name: 'login',
     component: LoginView
   },
+  {
+    path: '/verify',
+    name: 'verify',
+    component: VerifyView,
+    beforeEnter: (to, from, next) => beforeVerify(to, from, next)
+  }
 ];
 
 // function beforeEnter(to, from, next) {
 //   if (localStorage.getItem('user-token')) next();
 //   else next({ name: 'login', force: true, state: { login: true } })
 // }
+
+function beforeVerify(to, from, next) {
+  if (localStorage.getItem('user-status') !== null && JSON.parse(localStorage.getItem('user-status')).data === 'pending') next();
+  else next({ name: 'login', force: true, state: { login: true } })
+}
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

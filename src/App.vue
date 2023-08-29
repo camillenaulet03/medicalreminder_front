@@ -19,9 +19,12 @@ export default {
 </script>
 
 <style>
+html, body {
+  background-color: #F5FCFB;
+}
+
 #app {
   font-family: Verdana, sans-serif;
   margin-top: 60px;
-  background-color: #ffffff;
 }
 </style>

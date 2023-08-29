@@ -10,6 +10,10 @@ exports.login = (user) => {
     return api.post('/login', user);
 }
 
+exports.verify = (user) => {
+    return api.post('/verify', user);
+}
+
 exports.logout = (user) => {
     return api.post('/logout', user);
 }
