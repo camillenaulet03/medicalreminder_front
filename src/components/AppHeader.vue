@@ -87,12 +87,13 @@ a {
   text-decoration: inherit;
 }
 
+
 :deep(.burger-menu) {
-  background-color: #fffbf7;
+  background-color: #262DB7;
   padding-top: 10px;
 }
 
-.nav-menu {
+v-app-bar {
   padding-left: 30px;
 }
 

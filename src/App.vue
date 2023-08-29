@@ -22,6 +22,6 @@ export default {
 #app {
   font-family: Verdana, sans-serif;
   margin-top: 60px;
-  background-color: #262DB7;
+  background-color: #ffffff;
 }
 </style>

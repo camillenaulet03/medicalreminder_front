@@ -1,5 +1,11 @@
 <template>
-  <v-component>
-    huhuhu
-  </v-component>
+  Page home
 </template>
+
+<script>
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'HomeView',
+});
+</script>
