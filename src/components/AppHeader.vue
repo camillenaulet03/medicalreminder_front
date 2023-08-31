@@ -93,8 +93,13 @@ a {
   padding-top: 10px;
 }
 
+.v-toolbar__content {
+  background-color: #262DB7;
+}
+
 v-app-bar {
   padding-left: 30px;
+  background-color: #262DB7;
 }
 
 </style>

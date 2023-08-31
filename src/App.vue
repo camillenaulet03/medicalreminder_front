@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-main>
-      <AppHeader/>
+      <AppHeader class="header"/>
       <router-view/>
     </v-main>
   </v-app>
@@ -23,5 +23,9 @@ export default {
   font-family: Verdana, sans-serif;
   margin-top: 60px;
   background-color: #ffffff;
+}
+
+.header {
+  background-color: #262DB7;
 }
 </style>
