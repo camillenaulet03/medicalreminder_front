@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-main>
-      <AppHeader/>
+      <AppHeader class="header"/>
       <router-view/>
     </v-main>
   </v-app>
@@ -26,5 +26,9 @@ html, body {
 #app {
   font-family: Verdana, sans-serif;
   margin-top: 60px;
+}
+
+.header {
+  background-color: #262DB7;
 }
 </style>
