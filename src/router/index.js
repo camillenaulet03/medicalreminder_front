@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import VerifyView from "@/views/VerifyView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const routes = [
   {
@@ -19,7 +20,9 @@ const routes = [
     name: 'verify',
     component: VerifyView,
     beforeEnter: (to, from, next) => beforeVerify(to, from, next)
-  }
+  },
+  { path: '/404', component: NotFoundView },
+  { path: '/:catchAll(.*)', redirect: '/404' }
 ];
 
 // function beforeEnter(to, from, next) {
