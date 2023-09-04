@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div style="background-color: #262DB7;">
     <MqResponsive target="md+">
       <v-app-bar>
         <template #prepend>
@@ -91,10 +91,6 @@ a {
 :deep(.burger-menu) {
   background-color: #262DB7;
   padding-top: 10px;
-}
-
-.v-toolbar__content {
-  background-color: #262DB7;
 }
 
 v-app-bar {

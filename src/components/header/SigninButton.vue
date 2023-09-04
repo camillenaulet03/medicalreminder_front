@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'login', force: true, state: { login: false } }">
+  <router-link :to="{ name: 'signin', force: true }">
     <v-btn class="header-button header-button-background"> Inscription </v-btn>
   </router-link>
 </template>

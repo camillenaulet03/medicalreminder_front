@@ -1,5 +1,8 @@
 <template>
-  Ajouter logo
+  <v-img
+    aria-hidden=true
+    :src="require('../../assets/home/logo-mr.png')"
+  ></v-img>
 </template>
 
 <script>

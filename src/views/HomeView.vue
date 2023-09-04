@@ -23,7 +23,8 @@
           ></v-img>
         </div>
         <div class="textRight">
-          <h3 class="title">ADIEU LES OUBLIS</h3>
+          <h3 class="title">Vous êtes practicien ?</h3>
+          <p>Libérez du temps médical grâce à la prise de rendez-vous en ligne et un logiciel moderne.</p>
         </div>
       </div>
     </section>
@@ -86,6 +87,7 @@ export default {
   flex-direction: row;
   padding-left: 5em;
   padding-bottom: 5em;
+  background-image: url("../assets/home/homeBackground.png");
 }
 
 .v-row {

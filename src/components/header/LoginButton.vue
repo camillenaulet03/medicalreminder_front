@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'login', force: true, state: { login: true } }">
+  <router-link :to="{ name: 'login', force: true }">
     <v-btn variant="outlined" class="header-button" color="#262DB7">
       Connexion
     </v-btn>
