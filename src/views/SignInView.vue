@@ -12,11 +12,13 @@
         >
           Un code va vous être envoyé sur ce numéro pour valider votre compte.
         </p>
+        <input v-model="firstname" type="text" placeholder="Prénom" />
+        <input v-model="lastname" type="text" placeholder="Nom" />
         <input v-model="email" type="email" placeholder="Email" />
         <input v-model="emailconfirm" type="email" placeholder="Confirmation de l'email" />
         <input v-model="password" type="password" placeholder="Mot de passe" />
-        <label style="font-size: 14px;">
-          <input v-model="cgu" type="checkbox" />
+        <label style="font-size: 14px; width: 100%;">
+          <input v-model="cgu" type="checkbox" style="width: 3%" />
           J'accepte les Conditions Génrérales d'Utilisation de Medical Reminder.
         </label>
         <input type="submit" @click="submit" value="S'INSCRIRE"/>
@@ -26,14 +28,16 @@
   
   <script>
   
-  // import {toast} from 'vue3-toastify';
-  // import authService from "../../services/authService";
+  import {toast} from 'vue3-toastify';
+  import authService from "../../services/authService";
   
   export default {
     name: 'SignInView',
     data() {
       return {
         phone: null,
+        firstname: null,
+        lastname: null,
         email: null,
         emailconfirm: null,
         password: null,
@@ -43,22 +47,36 @@
     methods: {
       async submit(e) {
         e.preventDefault();
-        // if (this.email !== null && this.email !== '' && this.password !== null && this.password !== '') {
-        //   await authService.login({
-        //     email: this.email,
-        //     password: this.password
-        //   }).then(async (result) => {
-        //     await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
-        //     await localStorage.setItem("user-id", JSON.stringify({data: result.data.id, timestamp: Date.now()}));
-        //     await localStorage.setItem("user-status", JSON.stringify({data: 'pending', timestamp: Date.now()}));
-        //     this.$router.push('/verify');
-        //   }).catch(() => {
-        //     toast.error("Les identifiants sont incorrects !")
-        //   })
-        // } else {
-        //   toast.error("Les champs email et mot de passe sont obligatoires !")
-        // }
-
+        if (
+          this.firstname !== null && this.firstname !== '' &&
+          this.lastname !== null && this.lastname !== '' &&
+          this.email !== null && this.email !== '' &&
+          this.emailconfirm !== null && this.emailconfirm !== '' &&
+          this.phone !== null && this.phone !== '' &&
+          this.password !== null && this.password !== '' &&
+          this.cgu
+        ) {
+          if(this.email !== this.emailconfirm) {
+            toast.error("L'email n'est pas identique sur les deux champs!");
+          } else {
+            console.log("process");
+            await authService.register({
+              first_name: this.firstname,
+              last_name: this.lastname,
+              phone: this.phone,
+              email: this.email,
+              password: this.password,
+              missed_appointments: 0,
+              id_role: 1
+            }).then(async() => {
+              this.$router.push('/');
+            }).catch(() => {
+            toast.error("Les identifiants sont incorrects !")
+            });
+          }
+        } else {
+          toast.error("Tous les champs sont obligatoires!");
+        }
       }
     }
   }

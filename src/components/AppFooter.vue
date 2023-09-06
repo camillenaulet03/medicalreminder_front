@@ -1,10 +1,11 @@
 <template>
   <section style="
     background-color: #000000;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
+    height: 95px;
   ">
     <p
       style="

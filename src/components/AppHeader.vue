@@ -1,11 +1,12 @@
 <template>
-  <div style="background-color: #262DB7;">
+  <div>
     <MqResponsive target="md+">
-      <v-app-bar>
+      <v-app-bar color="#262DB7">
         <template #prepend>
           <HeaderLogo></HeaderLogo>
         </template>
         <v-spacer/>
+        <PracticianButton></PracticianButton>
         <LoginButton v-if="!isLoggedIn"></LoginButton>
         <SigninButton v-if="!isLoggedIn"></SigninButton>
       </v-app-bar>
@@ -13,7 +14,7 @@
     <MqResponsive target="xs-sm">
       <v-app-bar>
         <template #prepend>
-          <HeaderLogo></HeaderLogo>
+          <HeaderLogoBlue></HeaderLogoBlue>
         </template>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </v-app-bar>
@@ -23,6 +24,12 @@
         location="top"
         v-bind:width="isLoggedIn ? 210 : 150"
       >
+
+      <v-row>
+        <v-col cols="12" class="text-center">
+          <PracticianButton></PracticianButton>
+        </v-col>
+      </v-row>
 
         <v-row v-if="!isLoggedIn">
           <v-col cols="12" class="text-center">
@@ -45,8 +52,10 @@
 import { MqResponsive } from "vue3-mq";
 import router from '../router/index.js';
 import HeaderLogo from './header/HeaderLogo.vue';
+import HeaderLogoBlue from './header/HeaderLogoBlue.vue';
 import LoginButton from './header/LoginButton.vue';
 import SigninButton from './header/SigninButton.vue';
+import PracticianButton from './header/PracticianButton.vue';
 
 export default {
   name: "AppHeader",
@@ -54,8 +63,10 @@ export default {
   components: {
     MqResponsive,
     HeaderLogo,
+    HeaderLogoBlue,
     LoginButton,
     SigninButton,
+    PracticianButton,
   },
 
   data: () => ({

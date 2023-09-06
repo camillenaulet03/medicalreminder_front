@@ -1,8 +1,10 @@
 <template>
   <v-app id="app">
-    <v-main>
+    <v-main class="pt-2 pt-sm-2 pt-xs-2 pt-md-0 pt-lg-0 pt-xl-0">
       <AppHeader class="header"/>
-      <router-view/>
+      <div id="main-view">
+        <router-view style="padding-top: 0px;"/>
+      </div>
       <AppFooter class="footer"/>
     </v-main>
   </v-app>
@@ -33,5 +35,9 @@ html, body {
 
 .header {
   background-color: #262DB7;
+}
+
+#main-view {
+  padding-bottom:25px;
 }
 </style>
