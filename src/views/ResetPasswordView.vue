@@ -1,11 +1,10 @@
 <template>
   <div style="display: flex; justify-content: center;">
-    <form class="login">
-      <h2>Connexion</h2>
+    <form class="reset">
+      <h2>Mot de passe oublié</h2>
       <input v-model="email" type="email" placeholder="Adresse email" />
-      <input v-model="password" type="password" placeholder="Mot de passe" />
-      <input type="submit" @click="submit" value="SE CONNECTER"/>
-      <a href="/reset-password">Mot de passe oublié ?</a>
+      <p>Un email va vous être envoyé pour réinitaliser le mot de passe de votre compte.</p>
+      <input type="submit" @click="submit" value="REINITIALISER MON MOT DE PASSE"/>
     </form>
   </div>
 </template>
@@ -16,30 +15,25 @@ import {toast} from 'vue3-toastify';
 import authService from "../../services/authService";
 
 export default {
-  name: 'LoginView',
+  name: 'ResetPasswordView',
   data() {
     return {
-      email: null,
-      password: null
+      email: null
     }
   },
   methods: {
     async submit(e) {
       e.preventDefault();
-      if (this.email !== null && this.email !== '' && this.password !== null && this.password !== '') {
-        await authService.login({
-          email: this.email,
-          password: this.password
-        }).then(async (result) => {
-          await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
-          await localStorage.setItem("user-id", JSON.stringify({data: result.data.id, timestamp: Date.now()}));
-          await localStorage.setItem("user-status", JSON.stringify({data: 'pending', timestamp: Date.now()}));
-          this.$router.push('/verify');
+      if (this.email !== null && this.email !== '') {
+        await authService.resetPassword({
+          email: this.email
+        }).then(() => {
+          toast.success("Un mail vient d'être envoyé !")
         }).catch(() => {
           toast.error("Les identifiants sont incorrects !")
         })
       } else {
-        toast.error("Les champs email et mot de passe sont obligatoires !")
+        toast.error("Le champ email et mot de passe est obligatoire !")
       }
     }
   }
@@ -47,7 +41,7 @@ export default {
 </script>
 
 <style scoped>
-.login {
+.reset {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,8 +65,12 @@ input {
   border: 1px solid grey;
 }
 
+p {
+  width: 60%;
+}
+
 input[type="submit"] {
-  width: 150px;
+  width: 350px;
   margin-top: 2em;
   background-color: #262DB7;
   color: white;
@@ -85,7 +83,7 @@ input[type="submit"] {
 }
 
 @media screen and (max-width: 600px) {
-  .login {
+  .reset {
     width: 80%;
   }
 

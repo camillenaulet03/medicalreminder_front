@@ -18,4 +18,12 @@ exports.logout = (user) => {
     return api.post('/logout', user);
 }
 
+exports.resetPassword = (user) => {
+    return api.post('/reset-password', user);
+}
+
+exports.changePassword = (user) => {
+    return api.post('/change-password', user);
+}
+
 export default exports;

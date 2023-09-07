@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
-import SignInView from "@/views/SignInView.vue";
+import ResetPasswordView from "@/views/ResetPasswordView.vue";
+import ChangePasswordView from "@/views/ChangePasswordView.vue";
 import VerifyView from "@/views/VerifyView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const routes = [
   {
@@ -21,11 +23,23 @@ const routes = [
     component: SignInView
   },
   {
+    path: '/reset-password',
+    name: 'resetPassword',
+    component: ResetPasswordView
+  },
+  {
+    path: '/change-password',
+    name: 'changePassword',
+    component: ChangePasswordView
+  },
+  {
     path: '/verify',
     name: 'verify',
     component: VerifyView,
     beforeEnter: (to, from, next) => beforeVerify(to, from, next)
-  }
+  },
+  { path: '/404', component: NotFoundView },
+  { path: '/:catchAll(.*)', redirect: '/404' }
 ];
 
 // function beforeEnter(to, from, next) {
