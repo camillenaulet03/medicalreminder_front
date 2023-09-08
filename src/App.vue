@@ -35,6 +35,6 @@ export default {
 }
 
 #main-view {
-  padding-bottom:25px;
+  padding-bottom:55px;
 }
 </style>

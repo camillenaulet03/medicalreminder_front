@@ -1,13 +1,15 @@
 <template>
   <div>
-    <v-img
-      aria-hidden=true
-      eager
-      content-class="logo-class"
-      width="228"
-      height="60"
-      :src="require('../../assets/home/logo-mr.png')"
-    ></v-img>
+    <router-link :to="{ name: 'home', force: true }">
+      <v-img
+        aria-hidden=true
+        eager
+        content-class="logo-class"
+        width="228"
+        height="60"
+        :src="require('../../assets/home/logo-mr.png')"
+      ></v-img>
+    </router-link>
   </div>
 </template>
 

@@ -19,12 +19,29 @@
         <div class="imageLeft">
           <v-img
             aria-hidden=true
+            width="809"
+            height="688"
             :src="require('../assets/home/section1.png')"
           ></v-img>
         </div>
         <div class="textRight">
-          <h3 class="title">Vous êtes practicien ?</h3>
-          <p>Libérez du temps médical grâce à la prise de rendez-vous en ligne et un logiciel moderne.</p>
+          <h3 class="title">Vous êtes praticien ?</h3>
+          <v-row>
+            <v-col><v-icon icon="mdi-timer-outline" /></v-col>
+            <v-col cols="11">Libérez du temps médical grâce à la prise de rendez-vous en ligne et un logiciel moderne.</v-col>
+          </v-row>
+          <v-row>
+            <v-col><v-icon icon="mdi-sofa-single-outline" /></v-col>
+            <v-col cols="11">Gagnez en confort de travail au quotidien en réduisant les appels téléphoniques à votre cabinet.</v-col>
+          </v-row>
+          <v-row>
+            <v-col><v-icon icon="mdi-hand-heart-outline" /></v-col>
+            <v-col cols="11">Améliorez l'accès aux soins pour vos patients en leur proposant la meilleure des expériences.</v-col>
+          </v-row>
+          <v-row>
+            <v-col><v-icon icon="mdi-alarm-check" /></v-col>
+            <v-col cols="11">Proposez à vos patient un suivi régulier de leurs prise médicamenteuse.</v-col>
+          </v-row>
         </div>
       </div>
     </section>
@@ -88,6 +105,10 @@ export default {
   padding-left: 5em;
   padding-bottom: 5em;
   background-image: url("../assets/home/homeBackground.png");
+}
+
+.text-with-icon {
+  margin-bottom: 15px;
 }
 
 .v-row {
