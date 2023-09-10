@@ -73,7 +73,7 @@
               email: this.email,
               password: this.password,
               missed_appointments: 0,
-              id_role: 1
+              id_role: 5
             }).then(async() => {
               this.$router.push('/');
             }).catch(() => {

@@ -6,11 +6,23 @@
           <h1 class="mainTitle">N'oubliez plus</h1>
           <h1 class="mainTitle titleSecondLine">vos rendez-vous médicaux</h1>
         </div>
-        <div>
-          <v-img
-            aria-hidden=true
-            :src="require('../assets/home/homeTop.png')"
-          ></v-img>
+        <div class="titleImage">
+          <v-row>
+            <v-col>
+              <v-img
+                width="511"
+                aria-hidden=true
+                :src="require('../assets/home/homeMessage.png')"
+              ></v-img>
+            </v-col>
+            <v-col>
+              <v-img
+                width="900"
+                aria-hidden=true
+                :src="require('../assets/home/homeTop.png')"
+              ></v-img>
+            </v-col>
+          </v-row>
         </div>
       </div>
     </section>
@@ -89,6 +101,25 @@
         </div>
       </div>
     </section>
+    <section>
+      <div class="sectionHome">
+        <div class="imageLeft">
+          <v-img
+            aria-hidden=true
+            width="650"
+            :src="require('../assets/home/section3.png')"
+          ></v-img>
+        </div>
+        <div class="textRight textRightBottom">
+          <h3 class="title">Aucune prise de tête!</h3>
+          <p>
+            On vous aide à ne plus oublier vos prise de médicaments. 
+            Définissez les rappels et on se charge du reste ! 
+            Adopter cet outil pour une meilleure santé et un suivi régulier de celle-ci.
+          </p>
+        </div>
+      </div>
+    </section>
   </v-container>
 </template>
 
@@ -124,8 +155,20 @@ export default {
   font-size: 64px;
 }
 
+.titleImage {
+  margin-top: 50px;
+  /* position: absolute; */
+  left: 0;
+  right: 0;
+}
+
 .titleSecondLine {
   color: #262DB7;
+}
+
+.textRightBottom {
+  width: 30%;
+  margin-left: 100px;
 }
 
 .v-container {

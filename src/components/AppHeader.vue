@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <div class="header">
     <MqResponsive target="md+">
       <v-app-bar color="#262DB7">
         <template #prepend>
           <HeaderLogo></HeaderLogo>
         </template>
         <v-spacer/>
-        <PracticianButton></PracticianButton>
+        <ChangeRoleButton v-if="isLoggedIn && isAdmin"></ChangeRoleButton>
+        <LogoutButton v-if="isLoggedIn"></LogoutButton>
         <LoginButton v-if="!isLoggedIn"></LoginButton>
         <SigninButton v-if="!isLoggedIn"></SigninButton>
       </v-app-bar>
@@ -14,7 +15,7 @@
     <MqResponsive target="xs-sm">
       <v-app-bar>
         <template #prepend>
-          <HeaderLogoBlue></HeaderLogoBlue>
+          <HeaderLogo></HeaderLogo>
         </template>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </v-app-bar>
@@ -25,11 +26,17 @@
         v-bind:width="isLoggedIn ? 210 : 150"
       >
 
-      <v-row>
-        <v-col cols="12" class="text-center">
-          <PracticianButton></PracticianButton>
-        </v-col>
-      </v-row>
+        <v-row v-if="isLoggedIn && isAdmin">
+          <v-col cols="12" class="text-center">
+            <ChangeRoleButton></ChangeRoleButton>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="isLoggedIn">
+          <v-col cols="12" class="text-center">
+            <LogoutButton></LogoutButton>
+          </v-col>
+        </v-row>
 
         <v-row v-if="!isLoggedIn">
           <v-col cols="12" class="text-center">
@@ -52,10 +59,10 @@
 import { MqResponsive } from "vue3-mq";
 import router from '../router/index.js';
 import HeaderLogo from './header/HeaderLogo.vue';
-import HeaderLogoBlue from './header/HeaderLogoBlue.vue';
 import LoginButton from './header/LoginButton.vue';
 import SigninButton from './header/SigninButton.vue';
-import PracticianButton from './header/PracticianButton.vue';
+import ChangeRoleButton from './header/ChangeRoleButton.vue';
+import LogoutButton from './header/LogoutButton.vue';
 
 export default {
   name: "AppHeader",
@@ -63,15 +70,16 @@ export default {
   components: {
     MqResponsive,
     HeaderLogo,
-    HeaderLogoBlue,
     LoginButton,
     SigninButton,
-    PracticianButton,
+    ChangeRoleButton,
+    LogoutButton,
   },
 
   data: () => ({
     drawer: false,
     isLoggedIn: false,
+    isAdmin: false,
   }),
 
   methods: {
@@ -82,12 +90,10 @@ export default {
 
   inject: ["mq"],
 
-  // mounted() {
-  //   this.emitter.on("isLoggedIn", r => {
-  //     this.isLoggedIn = r;
-  //   });
-  //   this.isLoggedIn = localStorage.getItem('user-token') != null;
-  // },
+  mounted() {
+    this.isLoggedIn = localStorage.getItem('user-token') != null;
+    this.isAdmin = JSON.parse(localStorage.getItem('user-role'))['data'] == 1;
+  },
 
 };
 </script>
@@ -106,7 +112,6 @@ a {
 
 v-app-bar {
   padding-left: 30px;
-  background-color: #262DB7;
 }
 
 </style>

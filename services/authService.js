@@ -26,4 +26,8 @@ exports.changePassword = (user) => {
     return api.post('/change-password', user);
 }
 
+exports.changeRole = (user) => {
+    return api.post('/change-role', user);
+};
+
 export default exports;

@@ -34,6 +34,7 @@ export default {
           await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
           await localStorage.setItem("user-id", JSON.stringify({data: result.data.id, timestamp: Date.now()}));
           await localStorage.setItem("user-status", JSON.stringify({data: 'pending', timestamp: Date.now()}));
+          await localStorage.setItem("user-role", JSON.stringify({data: result.data.role, timestamp: Date.now()}));
           this.$router.push('/verify');
         }).catch(() => {
           toast.error("Les identifiants sont incorrects !")
