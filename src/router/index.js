@@ -3,6 +3,7 @@ import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ResetPasswordView from "@/views/ResetPasswordView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
+import CalendarView from "@/views/CalendarView.vue";
 import VerifyView from "@/views/VerifyView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 
@@ -33,14 +34,20 @@ const routes = [
     component: VerifyView,
     beforeEnter: (to, from, next) => beforeVerify(to, from, next)
   },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: CalendarView,
+    beforeEnter: (to, from, next) => beforeEnter(to, from, next)
+  },
   { path: '/404', component: NotFoundView },
   { path: '/:catchAll(.*)', redirect: '/404' }
 ];
 
-// function beforeEnter(to, from, next) {
-//   if (localStorage.getItem('user-token')) next();
-//   else next({ name: 'login', force: true, state: { login: true } })
-// }
+function beforeEnter(to, from, next) {
+  if (localStorage.getItem('user-token')) next();
+  else next({ name: 'login', force: true, state: { login: true } })
+}
 
 function beforeVerify(to, from, next) {
   if (localStorage.getItem('user-status') !== null && JSON.parse(localStorage.getItem('user-status')).data === 'pending') next();

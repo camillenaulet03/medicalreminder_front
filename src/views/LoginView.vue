@@ -31,7 +31,6 @@ export default {
           email: this.email,
           password: this.password
         }).then(async (result) => {
-          await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
           await localStorage.setItem("user-id", JSON.stringify({data: result.data.id, timestamp: Date.now()}));
           await localStorage.setItem("user-status", JSON.stringify({data: 'pending', timestamp: Date.now()}));
           this.$router.push('/verify');
