@@ -5,6 +5,7 @@ import SignInView from "@/views/SignInView.vue";
 import ResetPasswordView from "@/views/ResetPasswordView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
 import ChangeRoleView from "@/views/ChangeRoleView.vue";
+import CalendarView from "@/views/CalendarView.vue";
 import VerifyView from "@/views/VerifyView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 
@@ -44,6 +45,12 @@ const routes = [
     name: 'verify',
     component: VerifyView,
     beforeEnter: (to, from, next) => beforeVerify(to, from, next)
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: CalendarView,
+    beforeEnter: (to, from, next) => beforeEnter(to, from, next)
   },
   { path: '/404', component: NotFoundView },
   { path: '/:catchAll(.*)', redirect: '/404' }
