@@ -1,13 +1,13 @@
 <template>
-  <router-link :to="{ name: 'login', force: true }">
+  <router-link :to="{ name: 'changeRole', force: true }">
     <v-btn variant="outlined" class="header-button header-button-background">
-      Connexion
+      Changer un rôle
     </v-btn>
   </router-link>
 </template>
 <script>
 export default {
-  name: "LoginButton",
+  name: "ChangeRoleButton",
 }
 </script>
 <style scoped>

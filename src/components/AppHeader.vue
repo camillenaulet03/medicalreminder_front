@@ -1,11 +1,13 @@
 <template>
   <div class="header">
     <MqResponsive target="md+">
-      <v-app-bar>
+      <v-app-bar color="#262DB7">
         <template #prepend>
           <HeaderLogo></HeaderLogo>
         </template>
         <v-spacer/>
+        <ChangeRoleButton v-if="isLoggedIn && isAdmin"></ChangeRoleButton>
+        <LogoutButton v-if="isLoggedIn"></LogoutButton>
         <LoginButton v-if="!isLoggedIn"></LoginButton>
         <SigninButton v-if="!isLoggedIn"></SigninButton>
       </v-app-bar>
@@ -23,6 +25,18 @@
         location="top"
         v-bind:width="isLoggedIn ? 210 : 150"
       >
+
+        <v-row v-if="isLoggedIn && isAdmin">
+          <v-col cols="12" class="text-center">
+            <ChangeRoleButton></ChangeRoleButton>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="isLoggedIn">
+          <v-col cols="12" class="text-center">
+            <LogoutButton></LogoutButton>
+          </v-col>
+        </v-row>
 
         <v-row v-if="!isLoggedIn">
           <v-col cols="12" class="text-center">
@@ -47,6 +61,8 @@ import router from '../router/index.js';
 import HeaderLogo from './header/HeaderLogo.vue';
 import LoginButton from './header/LoginButton.vue';
 import SigninButton from './header/SigninButton.vue';
+import ChangeRoleButton from './header/ChangeRoleButton.vue';
+import LogoutButton from './header/LogoutButton.vue';
 
 export default {
   name: "AppHeader",
@@ -56,11 +72,14 @@ export default {
     HeaderLogo,
     LoginButton,
     SigninButton,
+    ChangeRoleButton,
+    LogoutButton,
   },
 
   data: () => ({
     drawer: false,
     isLoggedIn: false,
+    isAdmin: false,
   }),
 
   methods: {
@@ -71,12 +90,10 @@ export default {
 
   inject: ["mq"],
 
-  // mounted() {
-  //   this.emitter.on("isLoggedIn", r => {
-  //     this.isLoggedIn = r;
-  //   });
-  //   this.isLoggedIn = localStorage.getItem('user-token') != null;
-  // },
+  mounted() {
+    this.isLoggedIn = localStorage.getItem('user-token') != null;
+    this.isAdmin = JSON.parse(localStorage.getItem('user-role'))['data'] == 1;
+  },
 
 };
 </script>

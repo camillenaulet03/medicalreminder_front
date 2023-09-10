@@ -31,6 +31,7 @@ export default {
         }).then(async (result) => {
           await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
           await localStorage.setItem("user-status", JSON.stringify({data: 'approved', timestamp: Date.now()}));
+          await localStorage.setItem("user-role", JSON.stringify({data: result.data.role, timestamp: Date.now()}));
           this.$router.push('/calendar')
         }).catch(() => {
           toast.error("Le code est incorrect !")
