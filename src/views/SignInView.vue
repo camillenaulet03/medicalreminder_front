@@ -56,16 +56,9 @@
           this.password !== null && this.password !== '' &&
           this.cgu
         ) {
-          console.log(this.firstname);
-          console.log(this.lastname);
-          console.log(this.email);
-          console.log(this.emailconfirm);
-          console.log(this.phone);
-          console.log(this.password);
           if(this.email !== this.emailconfirm) {
             toast.error("L'email n'est pas identique sur les deux champs!");
           } else {
-            console.log("process");
             await authService.register({
               first_name: this.firstname,
               last_name: this.lastname,
