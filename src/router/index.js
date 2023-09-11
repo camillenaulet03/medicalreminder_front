@@ -56,6 +56,11 @@ const routes = [
   { path: '/:catchAll(.*)', redirect: '/404' }
 ];
 
+function beforeEnter(to, from, next) {
+  if (localStorage.getItem('user-token')) next();
+  else next({ name: 'login', force: true, state: { login: true } })
+}
+
 function beforeVerify(to, from, next) {
   if (localStorage.getItem('user-status') !== null && JSON.parse(localStorage.getItem('user-status')).data === 'pending') next();
   else next({ name: 'login', force: true, state: { login: true } })
