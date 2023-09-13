@@ -46,18 +46,7 @@ export default {
           right: "addApointment dayGridMonth,dayGridWeek",
         },
         eventClick: this.handleEventClick,
-        events: [
-          {
-            end: "2023-09-13T07:00:00.000Z",
-            start: "2023-09-13T05:00:00.000Z",
-            title: 8,
-          },
-          {
-            end: "2023-09-13T07:00:00.000Z",
-            start: "2023-09-13T05:00:00.000Z",
-            title: 8,
-          },
-        ],
+        events: [],
       },
     };
   },
@@ -72,30 +61,17 @@ export default {
       alert("info event : " + info.event.title + ", view : " + info.view.type);
     },
     getAppointments: async function () {
-      await AppointmentService.getAll({ id_user: 6 })
-        .then(async (result) => {
-          this.appointments = result.data.selectResult.map((appointment) => ({
+      const userId = await localStorage.getItem("user-id");
+      await AppointmentService.getAll({id: JSON.parse(userId)})
+        .then(async result => {
+          this.calendarOptions.events = await result.data.selectResult.map(appointment => ({
             title: appointment.id_practitioner,
             start: appointment.start_time,
             end: appointment.end_time,
           }));
-          console.log(this.appointments);
-          console.log([
-            {
-              end: "2023-09-13T07:00:00.000Z",
-              start: "2023-09-13T05:00:00.000Z",
-              title: 8,
-            },
-            {
-              end: "2023-09-13T07:00:00.000Z",
-              start: "2023-09-13T05:00:00.000Z",
-              title: 8,
-            },
-          ]);
+        }).catch(() => {
+          toast.error("Erreur lors du chargements des rendez-vous !")
         })
-        .catch(() => {
-          toast.error("Erreur lors du chargements des rendez-vous !");
-        });
     },
   },
   async mounted() {

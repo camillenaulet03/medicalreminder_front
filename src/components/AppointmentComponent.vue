@@ -71,8 +71,8 @@ export default {
     }).catch(() => {
       toast.error("Impossible de récupérer les patients !")
     });
-    // const userId = await localStorage.getItem("user-id");
-    userService.getUser({ params: { id: 2 } }).then(async (result) => {
+    const userId = await localStorage.getItem("user-id");
+    userService.getUser({ params: { id: JSON.parse(userId) } }).then(result => {
       this.practitiens = result.data.result.map(user => ({
         id: user.id,
         name: user.last_name + ' ' + user.first_name
