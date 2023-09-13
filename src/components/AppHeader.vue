@@ -5,8 +5,9 @@
         <template #prepend>
           <HeaderLogo></HeaderLogo>
         </template>
-        <v-spacer/>
+        <v-spacer />
         <ChangeRoleButton v-if="isLoggedIn && isAdmin"></ChangeRoleButton>
+        <CalendarLink v-if="isLoggedIn"></CalendarLink>
         <LogoutButton v-if="isLoggedIn"></LogoutButton>
         <LoginButton v-if="!isLoggedIn"></LoginButton>
         <SigninButton v-if="!isLoggedIn"></SigninButton>
@@ -25,7 +26,6 @@
         location="top"
         v-bind:width="isLoggedIn ? 210 : 150"
       >
-
         <v-row v-if="isLoggedIn && isAdmin">
           <v-col cols="12" class="text-center">
             <ChangeRoleButton></ChangeRoleButton>
@@ -49,7 +49,6 @@
             <SigninButton></SigninButton>
           </v-col>
         </v-row>
-
       </v-navigation-drawer>
     </MqResponsive>
   </div>
@@ -57,12 +56,13 @@
 
 <script>
 import { MqResponsive } from "vue3-mq";
-import router from '../router/index.js';
-import HeaderLogo from './header/HeaderLogo.vue';
-import LoginButton from './header/LoginButton.vue';
-import SigninButton from './header/SigninButton.vue';
-import ChangeRoleButton from './header/ChangeRoleButton.vue';
-import LogoutButton from './header/LogoutButton.vue';
+import router from "../router/index.js";
+import HeaderLogo from "./header/HeaderLogo.vue";
+import LoginButton from "./header/LoginButton.vue";
+import SigninButton from "./header/SigninButton.vue";
+import ChangeRoleButton from "./header/ChangeRoleButton.vue";
+import LogoutButton from "./header/LogoutButton.vue";
+import CalendarLink from "./header/CalendarLink.vue";
 
 export default {
   name: "AppHeader",
@@ -74,6 +74,7 @@ export default {
     SigninButton,
     ChangeRoleButton,
     LogoutButton,
+    CalendarLink,
   },
 
   data: () => ({
@@ -91,10 +92,9 @@ export default {
   inject: ["mq"],
 
   mounted() {
-    this.isLoggedIn = localStorage.getItem('user-token') != null;
-    this.isAdmin = JSON.parse(localStorage.getItem('user-role'))['data'] == 1;
+    this.isLoggedIn = localStorage.getItem("user-token") != null;
+    this.isAdmin = JSON.parse(localStorage.getItem("user-role"))["data"] == 1;
   },
-
 };
 </script>
 
@@ -104,14 +104,12 @@ a {
   text-decoration: inherit;
 }
 
-
 :deep(.burger-menu) {
-  background-color: #262DB7;
+  background-color: #262db7;
   padding-top: 10px;
 }
 
 v-app-bar {
   padding-left: 30px;
 }
-
 </style>
