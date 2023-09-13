@@ -62,22 +62,23 @@ export default {
     },
     getAppointments: async function () {
       const userId = await localStorage.getItem("user-id");
-      await AppointmentService.getAll({id: JSON.parse(userId)})
-        .then(async result => {
-          this.calendarOptions.events = await result.data.selectResult.map(appointment => ({
-            title: appointment.id_practitioner,
-            start: appointment.start_time,
-            end: appointment.end_time,
-          }));
-        }).catch(() => {
-          toast.error("Erreur lors du chargements des rendez-vous !")
+      await AppointmentService.getAll({ id_user: JSON.parse(userId).data })
+        .then(async (result) => {
+          this.calendarOptions.events = await result.data.selectResult.map(
+            (appointment) => ({
+              title: appointment.first_name + " " + appointment.last_name,
+              start: appointment.start_time,
+              end: appointment.end_time,
+            })
+          );
         })
+        .catch(() => {
+          toast.error("Erreur lors du chargements des rendez-vous !");
+        });
     },
   },
   async mounted() {
     this.getAppointments();
-    let currentIdUser = await localStorage.getItem("user-id");
-    this.idUserToGetCalendar = JSON.parse(currentIdUser).data;
   },
 };
 </script>
