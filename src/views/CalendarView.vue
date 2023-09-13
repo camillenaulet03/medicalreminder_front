@@ -12,6 +12,7 @@
 
 <script>
 import AppointmentComponent from "@/components/AppointmentComponent";
+
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -38,7 +39,7 @@ export default {
           center: "title",
           right: "addApointment dayGridMonth,dayGridWeek",
         },
-        dateClick: this.handleDateClick,
+        eventClick: this.handleEventClick,
         events: [
           { title: "event 1", date: "2023-09-12" },
           { title: "event 2", date: "2023-09-13" },
@@ -53,20 +54,36 @@ export default {
     openPopin() {
       this.isVisible = true;
     },
-    handleDateClick: function (arg) {
-      alert("date click! " + arg.dateStr);
+    handleEventClick: function (info) {
+      alert("info event : " + info.event.title + ", view : " + info.view.type);
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 #calendar {
   margin-top: 60px;
   margin-bottom: 60px;
 }
-button {
+#calendar .fc .fc-button-primary {
   background-color: #262db7;
+  border-color: #262db7;
   color: white;
+}
+
+#calendar .fc .fc-next-button,
+#calendar .fc .fc-prev-button,
+#calendar .fc .fc-dayGridWeek-button,
+#calendar .fc .fc-dayGridMonth-button,
+#calendar .fc .fc-today-button {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#calendar .fc .fc-icon-chevron-right,
+#calendar .fc .fc-icon-chevron-left {
+  vertical-align: bottom;
 }
 </style>
