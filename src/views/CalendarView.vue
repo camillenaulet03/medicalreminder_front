@@ -30,7 +30,6 @@ export default {
       appointments: [],
       isVisible: false,
       calendarOptions: {
-        timeZone: "UTC",
         plugins: [dayGridPlugin, interactionPlugin],
         locale: frLocale,
         initialView: "dayGridMonth",
