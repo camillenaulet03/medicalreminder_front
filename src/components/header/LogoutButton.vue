@@ -5,12 +5,15 @@
 </template>
 <script>
 import router from '../../router/index.js';
+import authService from "../../../services/authService";
 
 export default {
   name: "LogoutButton",
 
   methods: {
-    logout() {
+    async logout() {
+      const userId = await localStorage.getItem("user-id");
+      await authService.logout({id: JSON.parse(userId).data})
       localStorage.removeItem("user-token");
       router.push({name: "home"});
     }
