@@ -10,7 +10,9 @@
     <br />
     <h2>Détail du rendez-vous</h2>
     <br />
-    <slot />
+    {{ getDate() }}
+    <br />
+    {{ info.title }}
     <br />
     <br />
     <v-btn @click="deleteAppointment">Supprimer le rendez-vous</v-btn>
@@ -23,22 +25,42 @@
 export default {
   name: "InfoAppointmentComponent",
   data() {
-    return {
-      practitien: null,
-      practitiens: [],
-      patients: [],
-      startTime: null,
-      endTime: null,
-      comment: "",
-      patient: null,
-    };
+    return {};
+  },
+  props: {
+    info: Array,
   },
   methods: {
     async deleteAppointment(e) {
       e.preventDefault();
+      console.log(this.info.extendedProps.idAppointment);
     },
     close() {
       this.$emit("close-popin");
+    },
+    getDate() {
+      let dateEventStart = new Date(this.info.start);
+      let dateEventEnd = new Date(this.info.end);
+      let MinuteEventStart =
+        dateEventStart.getMinutes() == 0 ? "00" : dateEventStart.getMinutes();
+      let MinuteEventEnd =
+        dateEventEnd.getMinutes() == 0 ? "00" : dateEventEnd.getMinutes();
+      return (
+        dateEventStart.toLocaleDateString("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }) +
+        " de " +
+        dateEventStart.getHours() +
+        "h" +
+        MinuteEventStart +
+        " à " +
+        dateEventEnd.getHours() +
+        "h" +
+        MinuteEventEnd
+      );
     },
   },
 };

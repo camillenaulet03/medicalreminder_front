@@ -3,8 +3,11 @@
     v-if="isVisible"
     @close-popin="closePopin"
   ></AppointmentComponent>
-  <InfoAppointmentComponent v-if="isVisibleInfo" @close-popin="closePopin"
-    >{{ infoDate }}<br />{{ info }}
+  <InfoAppointmentComponent
+    :info="info"
+    v-if="isVisibleInfo"
+    @close-popin="closePopin"
+  >
   </InfoAppointmentComponent>
   <div id="calendar">
     <v-container>
@@ -36,8 +39,7 @@ export default {
     return {
       idUserToGetCalendar: null,
       appointments: [],
-      info: "",
-      infoDate: "",
+      info: [],
       isVisible: false,
       isVisibleInfo: false,
       calendarOptions: {
@@ -69,28 +71,7 @@ export default {
       this.isVisible = true;
     },
     handleEventClick: function (info) {
-      let dateEventStart = new Date(info.event.start);
-      let dateEventEnd = new Date(info.event.end);
-      let MinuteEventStart =
-        dateEventStart.getMinutes() == 0 ? "00" : dateEventStart.getMinutes();
-      let MinuteEventEnd =
-        dateEventEnd.getMinutes() == 0 ? "00" : dateEventEnd.getMinutes();
-      this.infoDate =
-        dateEventStart.toLocaleDateString("fr-FR", {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }) +
-        " de " +
-        dateEventStart.getHours() +
-        "h" +
-        MinuteEventStart +
-        " à " +
-        dateEventEnd.getHours() +
-        "h" +
-        MinuteEventEnd;
-      this.info = info.event.title;
+      this.info = info.event;
       this.isVisibleInfo = true;
     },
     getAppointments: async function () {
@@ -102,6 +83,7 @@ export default {
               title: appointment.first_name + " " + appointment.last_name,
               start: appointment.start_time,
               end: appointment.end_time,
+              extendedProps: { idAppointment: appointment.id },
             })
           );
         })
