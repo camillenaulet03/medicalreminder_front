@@ -10,7 +10,7 @@
   >
   </InfoAppointmentComponent>
   <div id="calendar">
-    <v-container>
+    <v-container class="calendar-container">
       <FullCalendar :options="calendarOptions" />
     </v-container>
   </div>
@@ -138,5 +138,12 @@ export default {
 
 #calendar .fc .fc-event {
   cursor: pointer;
+}
+
+#calendar .calendar-container {
+  background-color: white;
+  padding: 60px;
+  border-radius: 10px;
+  margin-bottom: 120px;
 }
 </style>
