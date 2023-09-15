@@ -66,6 +66,7 @@ export default {
     closePopin() {
       this.isVisible = false;
       this.isVisibleInfo = false;
+      this.getAppointments();
     },
     openPopin() {
       this.isVisible = true;

@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import AppointmentService from "../../services/appointmentService";
+import { toast } from "vue3-toastify";
+
 export default {
   name: "InfoAppointmentComponent",
   data() {
@@ -33,7 +36,17 @@ export default {
   methods: {
     async deleteAppointment(e) {
       e.preventDefault();
-      console.log(this.info.extendedProps.idAppointment);
+      const userId = await localStorage.getItem("user-id");
+      await AppointmentService.delete({
+        id_user: JSON.parse(userId).data,
+        id_appointment: this.info.extendedProps.idAppointment,
+      })
+        .then(async () => {
+          this.close();
+        })
+        .catch(() => {
+          toast.error("Erreur lors de l'annulation du rendez-vous !");
+        });
     },
     close() {
       this.$emit("close-popin");
