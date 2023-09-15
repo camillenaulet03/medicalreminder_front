@@ -3,6 +3,9 @@
     v-if="isVisible"
     @close-popin="closePopin"
   ></AppointmentComponent>
+  <InfoAppointmentComponent v-if="isVisibleInfo" @close-popin="closePopin"
+    >{{ infoDate }}<br />{{ info }}
+  </InfoAppointmentComponent>
   <div id="calendar">
     <v-container>
       <FullCalendar :options="calendarOptions" />
@@ -11,6 +14,7 @@
 </template>
 
 <script>
+import InfoAppointmentComponent from "@/components/InfoAppointmentComponent";
 import AppointmentComponent from "@/components/AppointmentComponent";
 import AppointmentService from "../../services/appointmentService";
 
@@ -23,12 +27,19 @@ import frLocale from "@fullcalendar/core/locales/fr";
 
 export default {
   name: "CalendarView",
-  components: { AppointmentComponent, FullCalendar },
+  components: {
+    AppointmentComponent,
+    FullCalendar,
+    InfoAppointmentComponent,
+  },
   data() {
     return {
       idUserToGetCalendar: null,
       appointments: [],
+      info: "",
+      infoDate: "",
       isVisible: false,
+      isVisibleInfo: false,
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         locale: frLocale,
@@ -52,12 +63,35 @@ export default {
   methods: {
     closePopin() {
       this.isVisible = false;
+      this.isVisibleInfo = false;
     },
     openPopin() {
       this.isVisible = true;
     },
     handleEventClick: function (info) {
-      alert("info event : " + info.event.title + ", view : " + info.view.type);
+      let dateEventStart = new Date(info.event.start);
+      let dateEventEnd = new Date(info.event.end);
+      let MinuteEventStart =
+        dateEventStart.getMinutes() == 0 ? "00" : dateEventStart.getMinutes();
+      let MinuteEventEnd =
+        dateEventEnd.getMinutes() == 0 ? "00" : dateEventEnd.getMinutes();
+      this.infoDate =
+        dateEventStart.toLocaleDateString("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }) +
+        " de " +
+        dateEventStart.getHours() +
+        "h" +
+        MinuteEventStart +
+        " à " +
+        dateEventEnd.getHours() +
+        "h" +
+        MinuteEventEnd;
+      this.info = info.event.title;
+      this.isVisibleInfo = true;
     },
     getAppointments: async function () {
       const userId = await localStorage.getItem("user-id");
