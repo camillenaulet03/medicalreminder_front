@@ -46,17 +46,12 @@ export default {
         plugins: [dayGridPlugin, interactionPlugin],
         locale: frLocale,
         initialView: "dayGridMonth",
-        customButtons: {
-          addApointment: {
-            text: "AJOUT RDV",
-            click: this.openPopin,
-          },
-        },
         headerToolbar: {
           left: "today prev,next",
           center: "title",
-          right: "addApointment dayGridMonth,dayGridWeek",
+          right: "dayGridMonth,dayGridWeek",
         },
+        eventDisplay: "block",
         eventClick: this.handleEventClick,
         events: [],
       },
@@ -95,6 +90,22 @@ export default {
   },
   async mounted() {
     this.getAppointments();
+
+    const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
+    if (role !== 5) {
+      // user is not a patient
+      this.calendarOptions["customButtons"] = {
+        addApointment: {
+          text: "AJOUT RDV",
+          click: this.openPopin,
+        },
+      };
+      this.calendarOptions["headerToolbar"] = {
+        left: "today prev,next",
+        center: "title",
+        right: "addApointment dayGridMonth,dayGridWeek",
+      };
+    }
   },
 };
 </script>
@@ -123,5 +134,9 @@ export default {
 #calendar .fc .fc-icon-chevron-right,
 #calendar .fc .fc-icon-chevron-left {
   vertical-align: bottom;
+}
+
+#calendar .fc .fc-event {
+  cursor: pointer;
 }
 </style>

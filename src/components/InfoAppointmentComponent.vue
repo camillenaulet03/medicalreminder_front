@@ -15,7 +15,9 @@
     {{ info.title }}
     <br />
     <br />
-    <v-btn @click="deleteAppointment">Supprimer le rendez-vous</v-btn>
+    <v-btn v-if="rightToDeleteAppointment" @click="deleteAppointment"
+      >Supprimer le rendez-vous</v-btn
+    >
     <br />
     <br />
   </div>
@@ -28,14 +30,24 @@ import { toast } from "vue3-toastify";
 export default {
   name: "InfoAppointmentComponent",
   data() {
-    return {};
+    return {
+      rightToDeleteAppointment: this.isRoleNotPatient,
+    };
   },
   props: {
     info: Array,
   },
   methods: {
-    async deleteAppointment(e) {
-      e.preventDefault();
+    async isRoleNotPatient() {
+      const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
+      if (role !== 5) {
+        // user is not a patient
+        return true;
+      } else {
+        return false;
+      }
+    },
+    async deleteAppointment() {
       const userId = await localStorage.getItem("user-id");
       await AppointmentService.delete({
         id_user: JSON.parse(userId).data,
