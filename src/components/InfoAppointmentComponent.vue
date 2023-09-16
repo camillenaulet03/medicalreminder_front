@@ -30,23 +30,13 @@ import { toast } from "vue3-toastify";
 export default {
   name: "InfoAppointmentComponent",
   data() {
-    return {
-      rightToDeleteAppointment: this.isRoleNotPatient,
-    };
+    return {};
   },
   props: {
     info: Array,
+    rightToDeleteAppointment: Boolean,
   },
   methods: {
-    async isRoleNotPatient() {
-      const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
-      if (role !== 5) {
-        // user is not a patient
-        return true;
-      } else {
-        return false;
-      }
-    },
     async deleteAppointment() {
       const userId = await localStorage.getItem("user-id");
       await AppointmentService.delete({
@@ -86,6 +76,9 @@ export default {
         "h" +
         MinuteEventEnd
       );
+    },
+    computed() {
+      console.log("hello");
     },
   },
 };

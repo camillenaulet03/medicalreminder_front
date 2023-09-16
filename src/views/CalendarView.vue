@@ -4,6 +4,7 @@
     @close-popin="closePopin"
   ></AppointmentComponent>
   <InfoAppointmentComponent
+    :rightToDeleteAppointment="rightToDeleteAppointment"
     :info="info"
     v-if="isVisibleInfo"
     @close-popin="closePopin"
@@ -40,6 +41,7 @@ export default {
       idUserToGetCalendar: null,
       appointments: [],
       info: [],
+      rightToDeleteAppointment: false,
       isVisible: false,
       isVisibleInfo: false,
       calendarOptions: {
@@ -105,6 +107,7 @@ export default {
         center: "title",
         right: "addApointment dayGridMonth,dayGridWeek",
       };
+      this.rightToDeleteAppointment = true;
     }
   },
 };
