@@ -46,9 +46,7 @@ export default {
           state: 'pending',
           start_time: this.startTime + ':00',
           end_time: this.endTime + ':00'
-        }).then(async (result) => {
-          await localStorage.setItem("user-token", JSON.stringify({data: result.data.token, timestamp: Date.now()}));
-          await localStorage.setItem("user-status", JSON.stringify({data: 'approved', timestamp: Date.now()}));
+        }).then(() => {
           this.close();
           toast.success("Ajout du rendez-vous !")
         }).catch(() => {
