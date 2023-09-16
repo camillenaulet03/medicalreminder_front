@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import AppointmentService from "../../services/appointmentService";
+import AppointmentService from "@/services/appointmentService";
 import { toast } from "vue3-toastify";
 
 export default {
