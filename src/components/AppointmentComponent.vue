@@ -18,8 +18,8 @@
 
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import {toast} from "vue3-toastify";
-import userService from "../../services/userService";
-import AppointmentService from "../../services/appointmentService";
+import userService from "@/services/userService";
+import AppointmentService from "@/services/appointmentService";
 
 export default {
   name: "AppointmentComponent",

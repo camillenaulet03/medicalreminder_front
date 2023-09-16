@@ -29,7 +29,7 @@
   <script>
   
   import {toast} from 'vue3-toastify';
-  import authService from "../../services/authService";
+  import authService from "@/services/authService";
   
   export default {
     name: 'SignInView',
@@ -130,4 +130,3 @@
   }
   
   </style>
-  

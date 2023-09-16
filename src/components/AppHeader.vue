@@ -56,7 +56,7 @@
 
 <script>
 import { MqResponsive } from "vue3-mq";
-import router from "../router/index.js";
+import router from "@/router/index.js";
 import HeaderLogo from "./header/HeaderLogo.vue";
 import LoginButton from "./header/LoginButton.vue";
 import SigninButton from "./header/SigninButton.vue";

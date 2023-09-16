@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
+import router from '@/router';
 import { Vue3Mq } from "vue3-mq";
 // import mitt from 'mitt';
-import vuetify from './plugins/vuetify';
-import { loadFonts } from './plugins/webfontloader';
+import vuetify from '@/plugins/vuetify';
+import { loadFonts } from '@/plugins/webfontloader';
 import 'vue3-toastify/dist/index.css';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 

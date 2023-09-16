@@ -12,7 +12,7 @@
 
 <script>
 import AppointmentComponent from "@/components/AppointmentComponent";
-import AppointmentService from "../../services/appointmentService";
+import AppointmentService from "@/services/appointmentService";
 
 import { toast } from "vue3-toastify";
 

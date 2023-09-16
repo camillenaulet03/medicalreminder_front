@@ -4,8 +4,8 @@
   </v-btn>
 </template>
 <script>
-import router from '../../router/index.js';
-import authService from "../../../services/authService";
+import router from '@/router/index.js';
+import authService from "@/services/authService";
 
 export default {
   name: "LogoutButton",

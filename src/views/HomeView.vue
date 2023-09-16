@@ -12,14 +12,14 @@
               <v-img
                 width="511"
                 aria-hidden=true
-                :src="require('../assets/home/homeMessage.png')"
+                :src="require('@/assets/home/homeMessage.png')"
               ></v-img>
             </v-col>
             <v-col>
               <v-img
                 width="900"
                 aria-hidden=true
-                :src="require('../assets/home/homeTop.png')"
+                :src="require('@/assets/home/homeTop.png')"
               ></v-img>
             </v-col>
           </v-row>
@@ -33,7 +33,7 @@
             aria-hidden=true
             width="809"
             height="688"
-            :src="require('../assets/home/section1.png')"
+            :src="require('@/assets/home/section1.png')"
           ></v-img>
         </div>
         <div class="textRight">
@@ -70,13 +70,13 @@
           </div>
           <v-img
             aria-hidden=true
-            :src="require('../assets/home/section2-1.png')"
+            :src="require('@/assets/home/section2-1.png')"
           ></v-img>
         </div>
         <div id="sectionMiddle">
           <v-img
             aria-hidden=true
-            :src="require('../assets/home/section2-2.png')"
+            :src="require('@/assets/home/section2-2.png')"
           ></v-img>
           <div style="width: 100%;">
             <h3 class="title">UNE SÉCURITÉ ACRRUE POUR VOS DONNÉES</h3>
@@ -96,7 +96,7 @@
           </div>
           <v-img
             aria-hidden=true
-            :src="require('../assets/home/section2-3.png')"
+            :src="require('@/assets/home/section2-3.png')"
           ></v-img>
         </div>
       </div>
@@ -107,7 +107,7 @@
           <v-img
             aria-hidden=true
             width="650"
-            :src="require('../assets/home/section3.png')"
+            :src="require('@/assets/home/section3.png')"
           ></v-img>
         </div>
         <div class="textRight textRightBottom">
@@ -135,7 +135,7 @@ export default {
   flex-direction: row;
   padding-left: 5em;
   padding-bottom: 5em;
-  background-image: url("../assets/home/homeBackground.png");
+  background-image: url("@/assets/home/homeBackground.png");
 }
 
 .text-with-icon {

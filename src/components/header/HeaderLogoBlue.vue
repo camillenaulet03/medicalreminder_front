@@ -7,14 +7,14 @@
         content-class="logo-class"
         width="228"
         height="60"
-        :src="require('../../assets/home/logo-mr.png')"
+        :src="require('@/assets/home/logo-mr.png')"
       ></v-img>
     </router-link>
   </div>
 </template>
 
 <script>
-import router from '../../router/index.js';
+import router from '@/router/index.js';
 
 export default {
   name: "HeaderLogoBlue",
