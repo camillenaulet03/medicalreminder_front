@@ -3,14 +3,22 @@
     v-if="isVisible"
     @close-popin="closePopin"
   ></AppointmentComponent>
+  <InfoAppointmentComponent
+    :rightToDeleteAppointment="rightToDeleteAppointment"
+    :info="info"
+    v-if="isVisibleInfo"
+    @close-popin="closePopin"
+  >
+  </InfoAppointmentComponent>
   <div id="calendar">
-    <v-container>
+    <v-container class="calendar-container">
       <FullCalendar :options="calendarOptions" />
     </v-container>
   </div>
 </template>
 
 <script>
+import InfoAppointmentComponent from "@/components/InfoAppointmentComponent";
 import AppointmentComponent from "@/components/AppointmentComponent";
 import AppointmentService from "@/services/appointmentService";
 
@@ -23,27 +31,29 @@ import frLocale from "@fullcalendar/core/locales/fr";
 
 export default {
   name: "CalendarView",
-  components: { AppointmentComponent, FullCalendar },
+  components: {
+    AppointmentComponent,
+    FullCalendar,
+    InfoAppointmentComponent,
+  },
   data() {
     return {
       idUserToGetCalendar: null,
       appointments: [],
+      info: [],
+      rightToDeleteAppointment: false,
       isVisible: false,
+      isVisibleInfo: false,
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         locale: frLocale,
         initialView: "dayGridMonth",
-        customButtons: {
-          addApointment: {
-            text: "AJOUT RDV",
-            click: this.openPopin,
-          },
-        },
         headerToolbar: {
           left: "today prev,next",
           center: "title",
-          right: "addApointment dayGridMonth,dayGridWeek",
+          right: "dayGridMonth,dayGridWeek",
         },
+        eventDisplay: "block",
         eventClick: this.handleEventClick,
         events: [],
       },
@@ -52,12 +62,15 @@ export default {
   methods: {
     closePopin() {
       this.isVisible = false;
+      this.isVisibleInfo = false;
+      this.getAppointments();
     },
     openPopin() {
       this.isVisible = true;
     },
     handleEventClick: function (info) {
-      alert("info event : " + info.event.title + ", view : " + info.view.type);
+      this.info = info.event;
+      this.isVisibleInfo = true;
     },
     getAppointments: async function () {
       const userId = await localStorage.getItem("user-id");
@@ -68,6 +81,7 @@ export default {
               title: appointment.first_name + " " + appointment.last_name,
               start: appointment.start_time,
               end: appointment.end_time,
+              extendedProps: { idAppointment: appointment.id },
             })
           );
         })
@@ -78,6 +92,23 @@ export default {
   },
   async mounted() {
     this.getAppointments();
+
+    const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
+    if (role !== 5) {
+      // user is not a patient
+      this.calendarOptions["customButtons"] = {
+        addApointment: {
+          text: "AJOUT RDV",
+          click: this.openPopin,
+        },
+      };
+      this.calendarOptions["headerToolbar"] = {
+        left: "today prev,next",
+        center: "title",
+        right: "addApointment dayGridMonth,dayGridWeek",
+      };
+      this.rightToDeleteAppointment = true;
+    }
   },
 };
 </script>
@@ -106,5 +137,16 @@ export default {
 #calendar .fc .fc-icon-chevron-right,
 #calendar .fc .fc-icon-chevron-left {
   vertical-align: bottom;
+}
+
+#calendar .fc .fc-event {
+  cursor: pointer;
+}
+
+#calendar .calendar-container {
+  background-color: white;
+  padding: 60px;
+  border-radius: 10px;
+  margin-bottom: 120px;
 }
 </style>
