@@ -16,7 +16,7 @@ npm install
 
 When the installations are complete, you can copy the `.env.example` file and rename it to `.env`
 
-You will need to launch the back so that the application can fully function : [https://github.com/camillenaulet03/medicalreminder_back]
+You will need to launch the back so that the application can fully function : https://github.com/camillenaulet03/medicalreminder_back
 
 ### Compiles and hot-reloads for development
 
