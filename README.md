@@ -4,7 +4,7 @@
 
 First of all, certain installations are required to be able to use this project:
 
-- [Node.js](https://nodejs.org/en/download/) (version 16 ou supérieure)
+- [Node.js](https://nodejs.org/en/download/) (version 16 or higher)
 
 ## Project setup
 
