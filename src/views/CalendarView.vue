@@ -12,6 +12,16 @@
   </InfoAppointmentComponent>
   <div id="calendar">
     <v-container class="calendar-container">
+      <div id="choice">
+        <select v-model="calendaruser" @change="chooseUser($event)">
+          <option :value="this.currentUserId" :key="this.currentUserId">
+            {{ this.currentUserName }}
+          </option>
+          <option v-for="c in calendarsToShow" :value="c.id" :key="c.id">
+            {{ c.first_name + " " + c.last_name }}
+          </option>
+        </select>
+      </div>
       <FullCalendar :options="calendarOptions" />
     </v-container>
   </div>
@@ -21,6 +31,7 @@
 import InfoAppointmentComponent from "@/components/InfoAppointmentComponent";
 import AppointmentComponent from "@/components/AppointmentComponent";
 import AppointmentService from "@/services/appointmentService";
+import UserService from "@/services/userService";
 
 import { toast } from "vue3-toastify";
 
@@ -44,6 +55,10 @@ export default {
       rightToDeleteAppointment: false,
       isVisible: false,
       isVisibleInfo: false,
+      calendaruser: null,
+      calendarsToShow: [],
+      currentUserName: '',
+      currentUserId: 0,
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         locale: frLocale,
@@ -72,9 +87,9 @@ export default {
       this.info = info.event;
       this.isVisibleInfo = true;
     },
-    getAppointments: async function () {
-      const userId = await localStorage.getItem("user-id");
-      await AppointmentService.getAll({ id_user: JSON.parse(userId).data })
+    getAppointments: async function (userId) {
+      this.calendarOptions.events = [];
+      await AppointmentService.getAll({ id_user: userId })
         .then(async (result) => {
           this.calendarOptions.events = await result.data.selectResult.map(
             (appointment) => ({
@@ -89,9 +104,28 @@ export default {
           toast.error("Erreur lors du chargements des rendez-vous !");
         });
     },
+    chooseUser(event) {
+      this.getAppointments(event.target.value);
+    }
   },
   async mounted() {
-    this.getAppointments();
+    this.currentUserId = JSON.parse(localStorage.getItem("user-id")).data;
+    UserService.getUser({params: {id: this.currentUserId}}).then(async (result) => {
+      this.currentUserName = result.data.result[0].first_name + ' ' + result.data.result[0].last_name;
+    }).catch(() => {
+      toast.error("Impossible de récupérer l'utilisateur courant !")
+    })
+
+    this.getAppointments(this.currentUserId);
+
+    await UserService.getSharedUsers({params: {
+      id: this.currentUserId
+    }}).then(async (result) => {
+      this.calendarsToShow = result.data;
+      console.log(this.calendarsToShow[0]);
+    }).catch(() => {
+      toast.error("Erreur lors du chargement des calendriers partagés !");
+    });
 
     const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
     if (role !== 5) {
@@ -149,4 +183,13 @@ export default {
   border-radius: 10px;
   margin-bottom: 120px;
 }
+
+select {
+  width: 60%;
+  margin-bottom: 1em;
+  padding: 0.75em;
+  border-radius: 5px;
+  border: 1px solid black !important;
+}
+
 </style>

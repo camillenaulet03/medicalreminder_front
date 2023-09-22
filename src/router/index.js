@@ -6,6 +6,7 @@ import ResetPasswordView from "@/views/ResetPasswordView.vue";
 import ChangePasswordView from "@/views/ChangePasswordView.vue";
 import ChangeRoleView from "@/views/ChangeRoleView.vue";
 import CalendarView from "@/views/CalendarView.vue";
+import DashboardView from "@/views/DashboardView.vue";
 import VerifyView from "@/views/VerifyView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/change-role',
     name: 'changeRole',
     component: ChangeRoleView
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardView
   },
   {
     path: '/verify',

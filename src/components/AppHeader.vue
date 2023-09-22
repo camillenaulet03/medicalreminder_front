@@ -7,6 +7,7 @@
         </template>
         <v-spacer />
         <ChangeRoleButton v-if="isLoggedIn && isAdmin"></ChangeRoleButton>
+        <DashboardButton v-if="isLoggedIn && isDoctor"></DashboardButton>
         <CalendarLink v-if="isLoggedIn"></CalendarLink>
         <LogoutButton v-if="isLoggedIn"></LogoutButton>
         <LoginButton v-if="!isLoggedIn"></LoginButton>
@@ -26,6 +27,13 @@
         location="top"
         v-bind:width="isLoggedIn ? 210 : 150"
       >
+
+        <v-row v-if="isLoggedIn && isDoctor">
+          <v-col cols="12" class="text-center">
+            <DashboardButton></DashboardButton>
+          </v-col>
+        </v-row>
+
         <v-row v-if="isLoggedIn && isAdmin">
           <v-col cols="12" class="text-center">
             <ChangeRoleButton></ChangeRoleButton>
@@ -61,6 +69,7 @@ import HeaderLogo from "./header/HeaderLogo.vue";
 import LoginButton from "./header/LoginButton.vue";
 import SigninButton from "./header/SigninButton.vue";
 import ChangeRoleButton from "./header/ChangeRoleButton.vue";
+import DashboardButton from "./header/DashboardButton.vue";
 import LogoutButton from "./header/LogoutButton.vue";
 import CalendarLink from "./header/CalendarLink.vue";
 
@@ -73,6 +82,7 @@ export default {
     LoginButton,
     SigninButton,
     ChangeRoleButton,
+    DashboardButton,
     LogoutButton,
     CalendarLink,
   },
@@ -81,6 +91,7 @@ export default {
     drawer: false,
     isLoggedIn: false,
     isAdmin: false,
+    isDoctor: false,
   }),
 
   methods: {
@@ -94,6 +105,7 @@ export default {
   mounted() {
     this.isLoggedIn = localStorage.getItem("user-token") != null;
     this.isAdmin = JSON.parse(localStorage.getItem("user-role"))["data"] == 1;
+    this.isDoctor = JSON.parse(localStorage.getItem("user-role"))["data"] == 2;
   },
 };
 </script>
