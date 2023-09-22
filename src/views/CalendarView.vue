@@ -14,7 +14,7 @@
     <v-container class="calendar-container">
       <div id="choice">
         <select v-model="calendaruser" @change="chooseUser($event)">
-          <option :value="this.currentUserId" :key="this.currentUserId">
+          <option :value="this.connectedUserId" :key="this.connectedUserId">
             {{ this.currentUserName }}
           </option>
           <option v-for="c in calendarsToShow" :value="c.id" :key="c.id">
@@ -58,7 +58,8 @@ export default {
       calendaruser: null,
       calendarsToShow: [],
       currentUserName: '',
-      currentUserId: 0,
+      selectedUserId: 0,
+      connectedUserId: 0,
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         locale: frLocale,
@@ -78,7 +79,7 @@ export default {
     closePopin() {
       this.isVisible = false;
       this.isVisibleInfo = false;
-      this.getAppointments();
+      this.getAppointments(this.selectedUserId);
     },
     openPopin() {
       this.isVisible = true;
@@ -105,21 +106,24 @@ export default {
         });
     },
     chooseUser(event) {
-      this.getAppointments(event.target.value);
+      console.log(event.target.value);
+      this.selectedUserId = event.target.value;
+      this.getAppointments(this.selectedUserId);
     }
   },
   async mounted() {
-    this.currentUserId = JSON.parse(localStorage.getItem("user-id")).data;
-    UserService.getUser({params: {id: this.currentUserId}}).then(async (result) => {
+    this.connectedUserId = JSON.parse(localStorage.getItem("user-id")).data;
+    this.selectedUserId = this.connectedUserId;
+    UserService.getUser({params: {id: this.selectedUserId}}).then(async (result) => {
       this.currentUserName = result.data.result[0].first_name + ' ' + result.data.result[0].last_name;
     }).catch(() => {
       toast.error("Impossible de récupérer l'utilisateur courant !")
     })
 
-    this.getAppointments(this.currentUserId);
+    this.getAppointments(this.selectedUserId);
 
     await UserService.getSharedUsers({params: {
-      id: this.currentUserId
+      id: this.selectedUserId
     }}).then(async (result) => {
       this.calendarsToShow = result.data;
       console.log(this.calendarsToShow[0]);
