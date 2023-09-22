@@ -33,8 +33,8 @@ export default {
             id_practitioner: JSON.parse(localStorage.getItem("user-id"))["data"],
             id_patient: result.data[0]['id'],
           };
-          console.log("calenderParams", calendarParams);
           await userService.shareCalendar(calendarParams).then(async (result2) => {
+            //TODO route navigate
             console.log(result2);
           }).catch(() => {
             toast.error("Le partage de calendrier a échoué");

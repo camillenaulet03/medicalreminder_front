@@ -106,7 +106,6 @@ export default {
         });
     },
     chooseUser(event) {
-      console.log(event.target.value);
       this.selectedUserId = event.target.value;
       this.getAppointments(this.selectedUserId);
     }
