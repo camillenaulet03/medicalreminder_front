@@ -39,12 +39,14 @@ const routes = [
   {
     path: '/change-role',
     name: 'changeRole',
-    component: ChangeRoleView
+    component: ChangeRoleView,
+    beforeEnter: (to, from, next) => beforeEnter(to, from, next)
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: DashboardView
+    component: DashboardView,
+    beforeEnter: (to, from, next) => beforeEnter(to, from, next)
   },
   {
     path: '/verify',

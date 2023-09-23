@@ -14,7 +14,10 @@ export default {
     async logout() {
       const userId = await localStorage.getItem("user-id");
       await authService.logout({id: JSON.parse(userId).data})
-      localStorage.removeItem("user-token");
+      await localStorage.removeItem("user-token");
+      await localStorage.removeItem("user-role");
+      this.emitter.emit("user-token", false);
+      this.emitter.emit("user-role", null);
       router.push({name: "home"});
     }
   },

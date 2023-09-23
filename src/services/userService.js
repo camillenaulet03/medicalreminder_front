@@ -2,8 +2,8 @@ import api from './axios';
 
 let exports = {};
 
-exports.getPatients = () => {
-    return api.get('/patients');
+exports.getPatients = (params) => {
+    return api.get('/patients', params);
 }
 
 exports.getUser = (params) => {

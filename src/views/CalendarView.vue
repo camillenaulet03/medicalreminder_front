@@ -125,7 +125,6 @@ export default {
       id: this.selectedUserId
     }}).then(async (result) => {
       this.calendarsToShow = result.data;
-      console.log(this.calendarsToShow[0]);
     }).catch(() => {
       toast.error("Erreur lors du chargement des calendriers partagés !");
     });

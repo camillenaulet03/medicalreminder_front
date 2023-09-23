@@ -98,15 +98,49 @@ export default {
     toHome() {
       router.push("/");
     },
+    permissions() {
+      this.emitter.on("user-token", r => {
+        this.isLoggedIn = r;
+      });
+      const userToken = localStorage.getItem('user-token');
+      if (userToken !== 'undefined' && userToken !== null) {
+        const parsedData = JSON.parse(userToken);
+        const timestamp = parsedData.timestamp;
+        const currentTime = Date.now();
+        const twentyFourHoursInMilliseconds = 24 * 60 * 60 * 1000;
+        if (currentTime - timestamp >= twentyFourHoursInMilliseconds) {
+          localStorage.removeItem('user-token');
+        } else {
+          this.isLoggedIn = parsedData.data;
+        }
+      }
+      this.emitter.on("user-role", r => {
+        console.log(r)
+      });
+      const admin = localStorage.getItem('user-role');
+      if (admin !== null) {
+        const parsedData = JSON.parse(admin);
+        const timestamp = parsedData.timestamp;
+        const currentTime = Date.now();
+        const twentyFourHoursInMilliseconds = 24 * 60 * 60 * 1000;
+        if (currentTime - timestamp >= twentyFourHoursInMilliseconds) {
+          localStorage.removeItem('user-role');
+        } else {
+          this.isAdmin = parsedData.data === 1;
+          this.isDoctor = parsedData.data !== 1 && parsedData.data !== 5;
+        }
+      }
+    }
   },
 
   inject: ["mq"],
 
-  mounted() {
-    this.isLoggedIn = localStorage.getItem("user-token") != null;
-    this.isAdmin = JSON.parse(localStorage.getItem("user-role"))["data"] == 1;
-    this.isDoctor = JSON.parse(localStorage.getItem("user-role"))["data"] == 2;
+  async mounted() {
+    await this.permissions();
   },
+  async updated() {
+    await this.permissions();
+  }
 };
 </script>
 
