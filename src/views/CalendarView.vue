@@ -12,7 +12,7 @@
   </InfoAppointmentComponent>
   <div id="calendar">
     <v-container class="calendar-container">
-      <div id="choice">
+      <div id="choice" v-if="isMedecin">
         <select v-model="calendaruser" @change="chooseUser($event)">
           <option :value="this.connectedUserId" :key="this.connectedUserId">
             {{ this.currentUserName }}
@@ -55,6 +55,7 @@ export default {
       rightToDeleteAppointment: false,
       isVisible: false,
       isVisibleInfo: false,
+      isMedecin: false,
       calendaruser: null,
       calendarsToShow: [],
       currentUserName: '',
@@ -132,6 +133,7 @@ export default {
     const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
     if (role !== 5) {
       // user is not a patient
+      this.isMedecin = true;
       this.calendarOptions["customButtons"] = {
         addApointment: {
           text: "AJOUT RDV",
