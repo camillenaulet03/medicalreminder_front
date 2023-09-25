@@ -115,7 +115,8 @@ export default {
         }
       }
       this.emitter.on("user-role", r => {
-        console.log(r)
+        this.isAdmin = r === 1;
+        this.isDoctor = r !== 1 && r !== 5;
       });
       const admin = localStorage.getItem('user-role');
       if (admin !== null) {
