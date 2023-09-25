@@ -41,7 +41,6 @@ export default {
             }
           });
         }).catch((error) => {
-          console.log(error)
           toast.error(error.response.data.message);
           console.error("Erreur lors du changement de mot de passe :", error);
         });
