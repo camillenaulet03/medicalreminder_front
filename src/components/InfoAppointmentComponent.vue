@@ -15,7 +15,7 @@
     {{ info.title }}
     <br />
     <br />
-    <v-btn v-if="rightToDeleteAppointment" @click="deleteAppointment"
+    <v-btn @click="deleteAppointment"
       >Supprimer le rendez-vous</v-btn
     >
     <br />
@@ -34,7 +34,6 @@ export default {
   },
   props: {
     info: Array,
-    rightToDeleteAppointment: Boolean,
   },
   methods: {
     async deleteAppointment() {
