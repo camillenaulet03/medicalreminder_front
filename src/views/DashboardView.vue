@@ -36,6 +36,7 @@ export default {
           await userService.shareCalendar(calendarParams).then(async (result2) => {
             //TODO route navigate
             console.log(result2);
+            toast.success("Calendrier partagé!");
           }).catch(() => {
             toast.error("Le partage de calendrier a échoué");
           });
