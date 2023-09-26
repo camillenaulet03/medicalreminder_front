@@ -43,7 +43,7 @@ export default {
       if (this.email !== null && this.email !== "") {
         await authService.changeRole(userBody).then(async () => {
           //À mettre un route navigate
-          console.log("Rôle changé");
+          toast.success("Rôle modifié");
         }).catch(() => {
           toast.error("L'email est incorrect !")
         });
