@@ -23,11 +23,11 @@ exports.resetPassword = (user) => {
 }
 
 exports.changePassword = (user) => {
-    return api.post('/change-password', user);
+    return api.patch('/change-password', user);
 }
 
 exports.changeRole = (user) => {
-    return api.post('/change-role', user);
+    return api.patch('/change-role', user);
 };
 
 export default exports;
