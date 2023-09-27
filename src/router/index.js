@@ -76,7 +76,10 @@ function beforeVerify(to, from, next) {
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior() {
+    return { top: 0 };
+  }
 });
 
 export default router;
