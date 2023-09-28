@@ -56,7 +56,7 @@ export default {
       isMedecin: false,
       calendaruser: null,
       calendarsToShow: [],
-      currentUserName: '',
+      currentUserName: "",
       selectedUserId: 0,
       connectedUserId: 0,
       calendarOptions: {
@@ -107,26 +107,35 @@ export default {
     chooseUser(event) {
       this.selectedUserId = event.target.value;
       this.getAppointments(this.selectedUserId);
-    }
+    },
   },
   async mounted() {
     this.connectedUserId = JSON.parse(localStorage.getItem("user-id")).data;
     this.selectedUserId = this.connectedUserId;
-    UserService.getUser({params: {id: this.selectedUserId}}).then(async (result) => {
-      this.currentUserName = result.data.result[0].first_name + ' ' + result.data.result[0].last_name;
-    }).catch(() => {
-      toast.error("Impossible de récupérer l'utilisateur courant !")
-    })
+    UserService.getUser({ params: { id: this.selectedUserId } })
+      .then(async (result) => {
+        this.currentUserName =
+          result.data.result[0].first_name +
+          " " +
+          result.data.result[0].last_name;
+      })
+      .catch(() => {
+        toast.error("Impossible de récupérer l'utilisateur courant !");
+      });
 
     this.getAppointments(this.selectedUserId);
 
-    await UserService.getSharedUsers({params: {
-      id: this.selectedUserId
-    }}).then(async (result) => {
-      this.calendarsToShow = result.data;
-    }).catch(() => {
-      toast.error("Erreur lors du chargement des calendriers partagés !");
-    });
+    await UserService.getSharedUsers({
+      params: {
+        id: this.selectedUserId,
+      },
+    })
+      .then(async (result) => {
+        this.calendarsToShow = result.data;
+      })
+      .catch(() => {
+        toast.error("Erreur lors du chargement des calendriers partagés !");
+      });
 
     const role = await JSON.parse(localStorage.getItem("user-role"))["data"];
     if (role !== 5) {
@@ -178,6 +187,11 @@ export default {
   cursor: pointer;
 }
 
+#calendar .fc .fc-header-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #calendar .calendar-container {
   background-color: white;
   padding: 60px;
@@ -192,5 +206,4 @@ select {
   border-radius: 5px;
   border: 1px solid black !important;
 }
-
 </style>
